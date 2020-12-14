@@ -71,6 +71,9 @@ namespace _01_KomodoCafe_Console
         {
             Console.Clear();
 
+            //View Existing Meals
+            ViewAllMeals();
+
             Menu newMenuItem = new Menu();
 
             //Assign Meal Number
@@ -122,26 +125,26 @@ namespace _01_KomodoCafe_Console
         {
             Console.Clear();
 
-            Console.WriteLine("List of all Meals:\n");
+            Console.WriteLine("List of all Meals:");
             List<Menu> listOfMeals = _menuRepo.GetMenuItems();
             foreach (Menu mealInfo in listOfMeals)
             {
-                Console.WriteLine($"Meal Number: {mealInfo.MealNumber}\n" +
+                Console.WriteLine($"\nMeal Number: {mealInfo.MealNumber}\n" +
                     $"Meal Name: {mealInfo.MealName}\n" +
                     $"Meal Description: {mealInfo.MealDescription}\n" +
                     $"Meal Price: {mealInfo.MealPrice}\n" +
-                    $"Ingredient(s): {string.Join(", ", mealInfo.ListOfIngredients.ToArray())}\n");
+                    $"Ingredient(s): {string.Join(", ", mealInfo.ListOfIngredients.ToArray())}");
             }
         }
 
         //View Meal by Number
         private void ViewMealByNumber()
         {
-            Console.Clear();
-
             bool keepViewing = true;
             while (keepViewing)
             {
+                Console.Clear();
+
                 keepViewing = false;
 
                 Menu seeMenuItems = new Menu();
@@ -178,28 +181,42 @@ namespace _01_KomodoCafe_Console
         {
             Console.Clear();
 
-            ViewAllMeals();
-
-            Menu seeMenuItems = new Menu();
-            Console.WriteLine("Enter the Meal Number that you would like deleted:");
-            string userInput = Console.ReadLine();
-            seeMenuItems.MealNumber = int.Parse(userInput);
-
-            bool wasDeleted = _menuRepo.RemoveMenuItem(seeMenuItems.MealNumber);
-            if (wasDeleted)
+            bool keepDeleting = true;
+            while (keepDeleting)
             {
-                Console.WriteLine("\nThe Meal was successfully removed from Menu.");
-            }
-            else
-            {
-                Console.WriteLine("\nThe Meal could not be removed from the Menu.");
+                ViewAllMeals();
+
+                keepDeleting = false;
+
+                Menu seeMenuItems = new Menu();
+                Console.WriteLine("\nEnter the Meal Number that you would like deleted:");
+                string userInput = Console.ReadLine();
+                seeMenuItems.MealNumber = int.Parse(userInput);
+
+                bool wasDeleted = _menuRepo.RemoveMenuItem(seeMenuItems.MealNumber);
+                if (wasDeleted)
+                {
+                    Console.WriteLine("\nThe Meal was successfully removed from Menu.");
+                }
+                else
+                {
+                    Console.WriteLine("\nThe Meal could not be removed from the Menu.");
+                }
+
+                Console.WriteLine("\nWould you like to delete another Meal (yes/no)?");
+                string userInput2 = Console.ReadLine().ToLower();
+
+                if (userInput2 == "yes" || userInput2 == "y")
+                {
+                    keepDeleting = true;
+                }
             }
         }
-        
+
         //Seed Method
         private void SeedMealsToMenu()
         {
-            var meal1 = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty, " + "mustard, " + "cheese, " + "onions"});
+            var meal1 = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty, " + "mustard, " + "cheese, " + "onions" });
 
             _menuRepo.AddMenuItemsToList(meal1);
         }
