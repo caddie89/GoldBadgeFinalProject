@@ -48,6 +48,7 @@ namespace _01_KomodoCafe_Console
                         break;
                     case "4":
                         //Delete Meal
+                        DeleteMeal();
                         break;
                     case "5":
                         //Exit
@@ -171,11 +172,34 @@ namespace _01_KomodoCafe_Console
                 }
             }
         }
+
+        //Delete Meal
+        private void DeleteMeal()
+        {
+            Console.Clear();
+
+            ViewAllMeals();
+
+            Menu seeMenuItems = new Menu();
+            Console.WriteLine("Enter the Meal Number that you would like deleted:");
+            string userInput = Console.ReadLine();
+            seeMenuItems.MealNumber = int.Parse(userInput);
+
+            bool wasDeleted = _menuRepo.RemoveMenuItem(seeMenuItems.MealNumber);
+            if (wasDeleted)
+            {
+                Console.WriteLine("\nThe Meal was successfully removed from Menu.");
+            }
+            else
+            {
+                Console.WriteLine("\nThe Meal could not be removed from the Menu.");
+            }
+        }
         
         //Seed Method
         private void SeedMealsToMenu()
         {
-            var meal1 = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty, " + "mustard, " + "cheese, " + "onions" });
+            var meal1 = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty, " + "mustard, " + "cheese, " + "onions"});
 
             _menuRepo.AddMenuItemsToList(meal1);
         }
