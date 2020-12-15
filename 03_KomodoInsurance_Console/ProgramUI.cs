@@ -42,6 +42,7 @@ namespace _03_KomodoInsurance_Console
                         break;
                     case "3":
                         //List All Badges
+                        ListAllBadges();
                         break;
                     case "4":
                         //Exit
@@ -69,8 +70,7 @@ namespace _03_KomodoInsurance_Console
             Console.WriteLine("Enter the Badge Number:");
             string badgeNumber = Console.ReadLine();
             newBadge.BadgeID = int.Parse(badgeNumber);
-
-            List<string> listOfDoors = new List<string>();
+            
             bool keepAdding = true;
             while (keepAdding)
             {
@@ -78,7 +78,7 @@ namespace _03_KomodoInsurance_Console
 
                 Console.WriteLine("\nEnter a Door you would like this Badge to have access to (i.e. A1, B5, etc.):");
                 string doorInput = Console.ReadLine();
-                listOfDoors.Add(doorInput);
+                newBadge.Doors.Add(doorInput);
 
                 Console.WriteLine("\nWould you like this Badge to have access to more Doors (yes/no)?");
                 string userInput = Console.ReadLine().ToLower();
@@ -89,7 +89,23 @@ namespace _03_KomodoInsurance_Console
                 }
             }
 
-            _badgeRepo.AddDoorsToBadge(newBadge.BadgeID, listOfDoors);
+            //_badgeRepo.AddDoorsToBadge(newBadge.BadgeID, newBadge.Doors);
+
+            _badgeRepo.AddBadgeToDictionary(newBadge.BadgeID, newBadge); //Help!
+        }
+
+        //List All Badges
+        private void ListAllBadges()
+        {
+            Console.Clear();
+
+            Console.WriteLine("List of all Badges:\n");
+            Dictionary<int, Badge> listOfBadges = _badgeRepo.ShowBadgesAndAccess();
+            foreach (KeyValuePair<int, Badge> badgeInfo in listOfBadges)
+            {
+                Console.WriteLine($"Badge ID: {badgeInfo.Key}\n" +
+                    $"Door Access: {badgeInfo.Value}");
+            }
         }
     }
 }
