@@ -92,7 +92,7 @@ namespace _02_KomodoClaims_Console
                 Queue<Claims> nextClaimInQueue = _claimsRepo.SeeClaimItems();
                 if (nextClaimInQueue.Count == 0)
                 {
-                    Console.WriteLine("Attention: there are no more Claims left in the Queue.");
+                    Console.WriteLine("ATTENTION: there are no more Claims left in the Queue.");
                 }
 
                 while (nextClaimInQueue.Count > 0)
@@ -112,7 +112,11 @@ namespace _02_KomodoClaims_Console
                         nextClaimInQueue.Dequeue();
                         keepWorkingOnClaims = true;
                     }
-                   
+                    else
+                    {
+                        break;
+                    }
+
                     Console.Clear();
                 }
             }
