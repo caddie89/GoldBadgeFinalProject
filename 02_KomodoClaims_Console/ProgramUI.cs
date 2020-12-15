@@ -69,7 +69,7 @@ namespace _02_KomodoClaims_Console
             Console.WriteLine("View All Claims:\n");
 
             PrintSeperatorLine();
-            PrintRow("Claim ID", "Type", "Description", "Amount", "DateOfAccident", "DateOfClaim", "IsValid");
+            PrintRow("ClaimID", "Type", "Description", "Amount", "DateOfAccident", "DateOfClaim", "IsValid");
             PrintSeperatorLine();
             Queue<Claims> viewAllClaims = _claimsRepo.SeeClaimThings();
             foreach (Claims claimInfo in viewAllClaims)
@@ -85,24 +85,13 @@ namespace _02_KomodoClaims_Console
             Console.Clear();
 
             Queue<Claims> nextClaimInQueue = _claimsRepo.SeeClaimThings();
-            Console.WriteLine(nextClaimInQueue.Peek().ClaimID);
-
-            //Console.WriteLine($"\nClaim ID: {claimInfo.ClaimID}\n" +
-            //$"Type: {claimInfo.ClaimType}\n" +
-            //$"Description: {claimInfo.ClaimDescription}\n" +
-            //$"Amount: {claimInfo.ClaimAmount}\n" +
-            //$"DateOfAccident: {claimInfo.DateOfIncident}\n" +
-            //$"DateOfClaim: {claimInfo.DateOfClaim}\n" +
-            //$"IsValid: {claimInfo.IsValid}")
-
-            //Console.WriteLine($"This is the next Claim in Queue:\n\n" +
-            //    $"{nextClaimInQueue.Peek()}");
-
-
-
-            //List<Claims> nextClaimInQueue = _claimsRepo.SeeClaimItems();
-            //foreach (Claims claimInfo in nextClaimInQueue)
-
+            Console.WriteLine($"ClaimID: {nextClaimInQueue.Peek().ClaimID}\n" +
+                $"Type: {nextClaimInQueue.Peek().ClaimType}\n" +
+                $"Description: {nextClaimInQueue.Peek().ClaimDescription}\n" +
+                $"Amount: {nextClaimInQueue.Peek().ClaimAmount}\n" +
+                $"DateOfAccident: {nextClaimInQueue.Peek().DateOfIncident}\n" +
+                $"DateOfClaim: {nextClaimInQueue.Peek().DateOfClaim}\n" +
+                $"IsValid: {nextClaimInQueue.Peek().IsValid}");
         }
 
         //Seed Method

@@ -5,7 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace _01_KomodoCafe_Tests
 {
     [TestClass]
-    public class TestMethods
+    public class MethodTests
     {
+        [TestMethod]
+        public void TestMethod1()
+        {
+        }
     }
 }
