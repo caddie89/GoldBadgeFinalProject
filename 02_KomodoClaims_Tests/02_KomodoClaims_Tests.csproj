@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{841ED134-3628-45C8-A77F-70DDB78A0E52}</ProjectGuid>
+    <ProjectGuid>{2DF70B17-87B8-4E16-B1D2-4D0ED4C2D562}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_01_KomodoCafe_Tests</RootNamespace>
-    <AssemblyName>01_KomodoCafe_Tests</AssemblyName>
+    <RootNamespace>_02_KomodoClaims_Tests</RootNamespace>
+    <AssemblyName>02_KomodoClaims_Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,21 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestMethods.cs" />
+    <Compile Include="MethodTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\01_KomodoCafe_Console\01_KomodoCafe_Console.csproj">
-      <Project>{4aa77042-4755-4312-9c4f-7053c5443795}</Project>
-      <Name>01_KomodoCafe_Console</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\01_KomodoCafe_Repository\01_KomodoCafe_Repository.csproj">
-      <Project>{e6a701e4-13a2-46bf-a8b0-49059396099a}</Project>
-      <Name>01_KomodoCafe_Repository</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
