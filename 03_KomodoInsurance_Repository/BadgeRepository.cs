@@ -14,18 +14,18 @@ namespace _03_KomodoInsurance_Repository
             _badgeDictionary.Add(badgeId, doors);
         }
 
-        //public void AddDoorsToBadge(int badgeId, List<string> doors)
-        //{
-        //    Badge badge = GetBadgeByID(badgeId);
+        public void AddDoorsToBadge(int badgeId, List<string> doors)
+        {
+            Badge badge = GetBadgeByID(badgeId);
 
-        //    if (badge != null)
-        //    {
-        //        if (badge.Doors == null)
-        //            badge.Doors = new List<string>();
+            if (badge != null)
+            {
+                if (badge.Doors == null)
+                    badge.Doors = new List<string>();
 
-        //        badge.Doors.AddRange(doors);
-        //    }
-        //}
+                badge.Doors.AddRange(doors);
+            }
+        }
 
         public Dictionary<int, Badge> ShowBadgesAndAccess()
         {
