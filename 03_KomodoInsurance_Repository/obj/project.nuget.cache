@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "e/fifh3ozbdD12hzAVHuSVudl6yzjRlBlgWwBYIYg/h/OpoF1QqAV21jBEpuJ72KryQYgQr42cVdsAZJCVagNQ==",
+  "success": true,
+  "projectFilePath": "C:\\ElevenFiftyProjects\\DotNetProjects\\GoldBadgeFinalProject\\GoldBadgeFinalProject\\03_KomodoInsurance_Repository\\03_KomodoInsurance_Repository.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Caleb\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
