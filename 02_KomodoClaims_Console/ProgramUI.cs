@@ -42,8 +42,8 @@ namespace _02_KomodoClaims_Console
                         NextClaim();
                         break;
                     case "3":
-                        //Enter a New Claim
-
+                        //Enter New Claim
+                        EnterNewClaim();
                         break;
                     case "4":
                         //Exit
@@ -71,10 +71,10 @@ namespace _02_KomodoClaims_Console
             PrintSeperatorLine();
             PrintRow("ClaimID", "Type", "Description", "Amount", "DateOfAccident", "DateOfClaim", "IsValid");
             PrintSeperatorLine();
-            Queue<Claims> viewAllClaims = _claimsRepo.SeeClaimThings();
+            Queue<Claims> viewAllClaims = _claimsRepo.SeeClaimItems();
             foreach (Claims claimInfo in viewAllClaims)
             {
-                PrintRow(claimInfo.ClaimID.ToString(), claimInfo.ClaimType.ToString(), claimInfo.ClaimDescription, claimInfo.ClaimAmount.ToString(), claimInfo.DateOfIncident.ToString(), claimInfo.DateOfClaim.ToString(), claimInfo.IsValid.ToString());
+                PrintRow(claimInfo.ClaimID.ToString(), claimInfo.ClaimType.ToString(), claimInfo.ClaimDescription, claimInfo.ClaimAmount.ToString(), claimInfo.DateOfAccident.ToShortDateString(), claimInfo.DateOfClaim.ToShortDateString(), claimInfo.IsValid.ToString());
             }
             PrintSeperatorLine();
         }
@@ -82,16 +82,99 @@ namespace _02_KomodoClaims_Console
         //Next Claim
         private void NextClaim()
         {
+            bool keepWorkingOnClaims = true;
+            while (keepWorkingOnClaims)
+            {
+                Console.Clear();
+
+                keepWorkingOnClaims = false;
+
+                Queue<Claims> nextClaimInQueue = _claimsRepo.SeeClaimItems();
+                if (nextClaimInQueue.Count == 0)
+                {
+                    Console.WriteLine("Attention: there are no more Claims left in the Queue.");
+                }
+
+                while (nextClaimInQueue.Count > 0)
+                {
+                    Console.WriteLine($"ClaimID: {nextClaimInQueue.Peek().ClaimID}\n" +
+                    $"Type: {nextClaimInQueue.Peek().ClaimType}\n" +
+                    $"Description: {nextClaimInQueue.Peek().ClaimDescription}\n" +
+                    $"Amount: {nextClaimInQueue.Peek().ClaimAmount}\n" +
+                    $"DateOfAccident: {nextClaimInQueue.Peek().DateOfAccident}\n" +
+                    $"DateOfClaim: {nextClaimInQueue.Peek().DateOfClaim}\n" +
+                    $"IsValid: {nextClaimInQueue.Peek().IsValid}\n");
+
+                    Console.WriteLine("Would you like to deal with this claim now (yes/no)?");
+                    string userInput = Console.ReadLine().ToLower();
+                    if (userInput == "yes" || userInput == "y")
+                    {
+                        nextClaimInQueue.Dequeue();
+                        keepWorkingOnClaims = true;
+                    }
+                   
+                    Console.Clear();
+                }
+            }
+        }
+
+        //Enter New Claim
+        public void EnterNewClaim()
+        {
             Console.Clear();
 
-            Queue<Claims> nextClaimInQueue = _claimsRepo.SeeClaimThings();
-            Console.WriteLine($"ClaimID: {nextClaimInQueue.Peek().ClaimID}\n" +
-                $"Type: {nextClaimInQueue.Peek().ClaimType}\n" +
-                $"Description: {nextClaimInQueue.Peek().ClaimDescription}\n" +
-                $"Amount: {nextClaimInQueue.Peek().ClaimAmount}\n" +
-                $"DateOfAccident: {nextClaimInQueue.Peek().DateOfIncident}\n" +
-                $"DateOfClaim: {nextClaimInQueue.Peek().DateOfClaim}\n" +
-                $"IsValid: {nextClaimInQueue.Peek().IsValid}");
+            Claims newClaim = new Claims();
+
+            //Enter ClaimID
+            Console.WriteLine("Enter the Claim ID:");
+            var claimId = Console.ReadLine();
+            newClaim.ClaimID = int.Parse(claimId);
+
+            //Enter Claim Type
+            Console.WriteLine("\nEnter the Claim Type (1, 2, or 3):\n" +
+                "1. Car\n" +
+                "2. Home\n" +
+                "3. Theft");
+            var claimTypeInput = Console.ReadLine();
+            var claimTypeInt = int.Parse(claimTypeInput);
+            newClaim.ClaimType = (ClaimType)claimTypeInt;
+
+            //Enter Description
+            Console.WriteLine("\nEnter Description of Claim:");
+            newClaim.ClaimDescription = Console.ReadLine();
+
+            //Enter Claim Amount
+            Console.WriteLine("\nEnter Claim Amount:");
+            var claimAmount = Console.ReadLine();
+            var claimAmountDecimal = decimal.Parse(claimAmount);
+            newClaim.ClaimAmount = claimAmountDecimal;
+
+            //Date of Accident
+            Console.WriteLine("\nDate of Accident (yyyy, mm, dd):");
+            var dateOfAccident = Console.ReadLine();
+            var dateOfAccidentDate = DateTime.Parse(dateOfAccident);
+            newClaim.DateOfAccident = dateOfAccidentDate;
+
+            //Date of Claim
+            Console.WriteLine("\nDate of Claim (yyyy, mm, dd):");
+            var dateOfClaim = Console.ReadLine();
+            var dateOfClaimDate = DateTime.Parse(dateOfClaim);
+            newClaim.DateOfClaim = dateOfClaimDate;
+
+            //IsValid Claim
+            Console.WriteLine("\nIs this Claim Valid (yes/no)?");
+            var isValidString = Console.ReadLine().ToLower();
+
+            if (isValidString == "yes" || isValidString == "y")
+            {
+                newClaim.IsValid = true;
+            }
+            else
+            {
+                newClaim.IsValid = false;
+            }
+
+            _claimsRepo.AddClaimToQueue(newClaim);
         }
 
         //Seed Method
@@ -106,7 +189,7 @@ namespace _02_KomodoClaims_Console
             _claimsRepo.AddClaimToQueue(claim3);
         }
 
-        //Build Table
+        //Build Table (I do not understand this at all, the video I watched was NOT in English!!!)
         private const int TableWidth = 110;
         private static void PrintSeperatorLine()
         {

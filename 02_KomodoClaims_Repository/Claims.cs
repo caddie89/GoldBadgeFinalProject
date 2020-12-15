@@ -8,20 +8,20 @@ namespace _02_KomodoClaims_Repository
         public ClaimType ClaimType { get; set; }
         public string ClaimDescription { get; set; }
         public decimal ClaimAmount { get; set; }
-        public DateTime DateOfIncident { get; set; } = new DateTime();
+        public DateTime DateOfAccident { get; set; } = new DateTime();
         public DateTime DateOfClaim { get; set; } = new DateTime();
         public bool IsValid { get; set; }
 
         public Claims() { }
 
         //Seed Data Constructor
-        public Claims(int claimId, ClaimType claimType, string claimDescription, decimal claimAmount, DateTime dateOfIncident, DateTime dateOfClaim, bool isValid)
+        public Claims(int claimId, ClaimType claimType, string claimDescription, decimal claimAmount, DateTime dateOfAccident, DateTime dateOfClaim, bool isValid)
         {
             ClaimID = claimId;
             ClaimType = claimType;
             ClaimDescription = claimDescription;
             ClaimAmount = claimAmount;
-            DateOfIncident = dateOfIncident;
+            DateOfAccident = dateOfAccident;
             DateOfClaim = dateOfClaim;
             IsValid = isValid;
         }

@@ -7,43 +7,18 @@ namespace _02_KomodoClaims_Repository
 {
     public class ClaimsRepository
     {
-        private Queue<Claims> _claimThings = new Queue<Claims>();
+        private Queue<Claims> _claimItems = new Queue<Claims>();
 
         //Create Method (Create New Claim)
-        public void AddClaimToQueue(Claims claimThings)
+        public void AddClaimToQueue(Claims claimItems)
         {
-            _claimThings.Enqueue(claimThings);
+            _claimItems.Enqueue(claimItems);
         }
 
         //Read Method (View All Claims)
-        public Queue<Claims> SeeClaimThings()
+        public Queue<Claims> SeeClaimItems()
         {
-            return _claimThings;            
+            return _claimItems;            
         }
-
-    //    //Delete Method
-    //    public bool RemoveClaim(int claimNumber)
-    //    {
-    //        Claims claimItem = GetClaimByID(claimNumber);
-
-    //        if (_claimItems.Remove(claimItem))
-    //        {
-    //            return true;
-    //        }
-    //        return false;
-    //    }
-
-    //    //Helper (Get Claim by ID)
-    //    public Claims GetClaimByID(int id)
-    //    {
-    //        foreach (Claims claim in _claimItems)
-    //        {
-    //            if (claim.ClaimID == id)
-    //            {
-    //                return claim;
-    //            }
-    //        }
-    //        return null;
-    //    }
     }
 }
