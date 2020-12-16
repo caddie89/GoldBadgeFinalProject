@@ -25,16 +25,6 @@ namespace _03_KomodoInsurance_Repository
             _badgeDictionary[badgeId] = newBadgeAccess;
         }
 
-        //Delete Doors
-        //public Dictionary<int, List<string>> RemoveDoor(int badgeId, List<string> door)
-        //{
-        //    foreach (List<string> list in _badgeDictionary.Values)
-        //    {
-        //        list.Remove(door);
-        //    }
-        //    return _badgeDictionary;
-        //}
-
         //Show Badge By ID
         public List<string> ShowBadgeByID(int badgeId)
         {

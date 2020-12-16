@@ -71,16 +71,17 @@ namespace _03_KomodoInsurance_Console
 
             Badge newBadge = new Badge();
 
-            Console.WriteLine("Enter a unique 5-digit Badge Number (i.e. 12345):");
+            Console.WriteLine("Enter a unique 5-digit Badge # (i.e. 12345):");
             string badgeNumber = Console.ReadLine();
             newBadge.BadgeID = int.Parse(badgeNumber);
 
             bool keepAdding = true;
             while (keepAdding)
             {
+                Console.Clear();
                 keepAdding = false;
 
-                Console.WriteLine($"\nEnter a Door you would like Badge # {newBadge.BadgeID} to have access to (i.e. A1, B5, etc.):");
+                Console.WriteLine($"Enter a Door you would like Badge # {newBadge.BadgeID} to have access to (i.e. A1, B5, etc.):");
                 string doorInput = Console.ReadLine();
                 newBadge.Doors.Add(doorInput);
 
@@ -92,7 +93,14 @@ namespace _03_KomodoInsurance_Console
                     keepAdding = true;
                 }
             }
+
             _badgeRepo.AddBadgeToDictionary(newBadge.BadgeID, newBadge.Doors);
+
+            var values2 = _badgeRepo.ShowBadgesAndAccess();
+            if (values2.TryGetValue(newBadge.BadgeID, out List<string> doors))
+            {
+                Console.WriteLine($"\nBadge # {newBadge.BadgeID} has access to door(s) {string.Join(",", doors.ToArray())}.");
+            } 
         }
 
         //Update Badge
@@ -232,12 +240,12 @@ namespace _03_KomodoInsurance_Console
         private void SeedBadges()
         {
             Badge badge1 = new Badge(12345, new List<string> { "A7" });
-            Badge badge2 = new Badge(22345, new List<string> { "A1","A4","B1","B2" });
+            Badge badge2 = new Badge(22345, new List<string> { "A1", "A4","B1","B2" });
             Badge badge3 = new Badge(32345, new List<string> { "A4", "A5" });
 
             _badgeRepo.AddBadgeToDictionary(badge1.BadgeID, badge1.Doors);
             _badgeRepo.AddBadgeToDictionary(badge2.BadgeID, badge2.Doors);
-            _badgeRepo.AddBadgeToDictionary(badge3.BadgeID, badge2.Doors);
+            _badgeRepo.AddBadgeToDictionary(badge3.BadgeID, badge3.Doors);
         }
 
         //Table Code (I do not understand this!)
