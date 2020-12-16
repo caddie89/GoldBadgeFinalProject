@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using _02_KomodoClaims_Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,28 +11,26 @@ namespace _02_KomodoClaims_Tests
         private Claims _claimsItems;
         private ClaimsRepository _claimsRepo;
 
-        //Test Initialize
+        //Didn't Use
         [TestInitialize]
         public void Arrange()
         {
-            _claimsRepo = new ClaimsRepository();
-            _claimsItems = new Claims(1, ClaimType.Car, "Car accident on 465.", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27), true);
-
-            _claimsRepo.AddClaimToQueue(_claimsItems);
+            
         }
 
         //Add Method
         [TestMethod]
         public void AddClaimToQueue_ShouldNotGetNull()
         {
-            //Arrange --> Seetting up the playing field
-            Arrange();
+            //Arrange
+            _claimsItems = new Claims(1, ClaimType.Car, "Car accident on 465.", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27), true);
+            _claimsRepo = new ClaimsRepository();
 
-            //Act --> Get/run the code we want to test
+            //Act
             _claimsRepo.AddClaimToQueue(_claimsItems);
 
-            //Assert --> Use the assert class to verify the expected outcome
-            Assert.IsNotNull(_claimsItems);
+            //Assert
+            Assert.IsNotNull(_claimsRepo);
         }
 
         //Read Method
@@ -39,13 +38,15 @@ namespace _02_KomodoClaims_Tests
         public void SeeClaimsItems_ShouldNotGetNull()
         {
             //Arrange
-            Arrange();
+            _claimsRepo = new ClaimsRepository();
+            _claimsItems = new Claims();
+            _claimsRepo.AddClaimToQueue(_claimsItems);
 
             //Act
-            _claimsRepo.SeeClaimItems();
+            Queue<Claims> queue = _claimsRepo.SeeClaimItems();
 
             //Assert
-
+            Assert.IsNotNull(queue);
         }
     }
 }
