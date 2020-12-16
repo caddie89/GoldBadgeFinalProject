@@ -8,12 +8,13 @@ namespace _03_KomodoInsurance_Repository
     {
         private Dictionary<int, List<string>> _badgeDictionary = new Dictionary<int, List<string>>();
 
-        //Add to Dictionary
+        //Add Badge to Dictionary
         public void AddBadgeToDictionary(int badgeId, List<string> doors)
         {
             _badgeDictionary.Add(badgeId, doors);
         }
 
+        //Show All Badges and Access
         public Dictionary<int, List<string>> ShowBadgesAndAccess()
         {
             return _badgeDictionary;

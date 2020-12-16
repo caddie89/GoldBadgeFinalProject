@@ -77,7 +77,7 @@ namespace _01_KomodoCafe_Console
             Menu newMenuItem = new Menu();
 
             //Assign Meal Number
-            Console.WriteLine("Assign a unique Meal Number:");
+            Console.WriteLine("\nAssign a unique Meal Number:");
             var mealNumber = Console.ReadLine();
             newMenuItem.MealNumber = int.Parse(mealNumber);
 
@@ -97,7 +97,6 @@ namespace _01_KomodoCafe_Console
             _menuRepo.AddMenuItemsToList(newMenuItem);
 
             //Assign List of Ingredients
-
             List<string> listOfIngredients = new List<string>();
             bool keepAdding = true;
             while (keepAdding)
@@ -115,6 +114,8 @@ namespace _01_KomodoCafe_Console
                 {
                     keepAdding = true;
                 }
+
+                Console.Clear();
             }
 
             _menuRepo.AddIngredientToMenu(newMenuItem.MealNumber, listOfIngredients);
@@ -222,21 +223,3 @@ namespace _01_KomodoCafe_Console
         }
     }
 }
-
-//Directions:
-
-//The Menu Items:
-//A meal number, so customers can say "I'll have the #5"
-//A meal name
-//A description
-//A list of ingredients,
-//A price
-
-//Your Task:
-//Create a Menu Class with properties, constructors, and fields.
-//Create a MenuRepository Class that has methods needed.
-//Create a Test Class for your repository methods. (You don't need to test your constructors or objects, just your methods)
-//Create a Program file that allows the cafe manager to add, delete, and see all items in the menu list.
-
-//Notes:
-//We don't need to be able to update items right now.
