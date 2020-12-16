@@ -216,7 +216,7 @@ namespace _01_KomodoCafe_Console
         //Seed Method
         private void SeedMealsToMenu()
         {
-            var meal1 = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty, " + "mustard, " + "cheese, " + "onions" });
+            var meal1 = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty", "mustard","cheese","onions" });
 
             _menuRepo.AddMenuItemsToList(meal1);
         }

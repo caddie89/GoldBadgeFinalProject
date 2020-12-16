@@ -44,7 +44,7 @@ namespace _03_KomodoInsurance_Console
                         break;
                     case "3":
                         //List All Badges
-                        ListAllBadges();
+                        ListAllBadgesTable();
                         break;
                     case "4":
                         //Exit
@@ -71,7 +71,7 @@ namespace _03_KomodoInsurance_Console
 
             Badge newBadge = new Badge();
 
-            Console.WriteLine("Enter a new Badge Number:");
+            Console.WriteLine("Enter a unique 5-digit Badge Number (i.e. 12345):");
             string badgeNumber = Console.ReadLine();
             newBadge.BadgeID = int.Parse(badgeNumber);
 
@@ -92,7 +92,6 @@ namespace _03_KomodoInsurance_Console
                     keepAdding = true;
                 }
             }
-
             _badgeRepo.AddBadgeToDictionary(newBadge.BadgeID, newBadge.Doors);
         }
 
@@ -103,19 +102,11 @@ namespace _03_KomodoInsurance_Console
 
             ListAllBadges();
 
-            Badge newBadge = new Badge();
-
             Console.WriteLine("Enter the Badge ID # you would like to update (i.e. 12345):");
             string badgeNumber = Console.ReadLine();
-            newBadge.BadgeID = int.Parse(badgeNumber);
+            int badgeId = int.Parse(badgeNumber);
 
-            //var values = _badgeRepo.ShowBadgesAndAccess();
-            //if (values.TryGetValue(newBadge.BadgeID, out List<string> result))
-            //{
-            //    Console.WriteLine($"\nBadge # {newBadge.BadgeID} has access to door(s) {string.Join(",", result.ToArray())}.\n\n" +
-            //        $"Press ENTER to continue...");
-            //}
-            //Console.ReadLine();
+            List<string> newDoors = _badgeRepo.ShowBadgeByID(badgeId);
 
             bool keepRunning = true;
             while (keepRunning)
@@ -142,16 +133,16 @@ namespace _03_KomodoInsurance_Console
                             keepAdding = false;
 
                             var values2 = _badgeRepo.ShowBadgesAndAccess();
-                            if (values2.TryGetValue(newBadge.BadgeID, out List<string> result2))
+                            if (values2.TryGetValue(badgeId, out List<string> doors))
                             {
-                                Console.WriteLine($"Badge # {newBadge.BadgeID} has access to door(s) {string.Join(",", result2.ToArray())}.\n");
+                                Console.WriteLine($"Badge # {badgeId} has access to door(s) {string.Join(",", doors.ToArray())}.\n");
                             }
 
-                            Console.WriteLine($"Enter a Door that Badge # {newBadge.BadgeID} should have access to (i.e. A1, B5, etc.):\n");
+                            Console.WriteLine($"Enter a Door that Badge # {badgeId} should have access to (i.e. A1, B5, etc.):");
                             string doorToAdd = Console.ReadLine();
-                            newBadge.Doors.Add(doorToAdd);
+                            newDoors.Add(doorToAdd);
 
-                            Console.WriteLine($"\nWould you like Badge # {newBadge.BadgeID} to have access to more Doors (yes/no)?");
+                            Console.WriteLine($"\nWould you like Badge # {badgeId} to have access to more Doors (yes/no)?");
                             string yesOrNoInput = Console.ReadLine().ToLower();
 
                             if (yesOrNoInput == "yes" || yesOrNoInput == "y")
@@ -159,11 +150,8 @@ namespace _03_KomodoInsurance_Console
                                 keepAdding = true;
                             }
 
-                            _badgeRepo.UpdateBadgeAccess(newBadge.BadgeID, newBadge.Doors);
+                            _badgeRepo.UpdateBadgeAccess(badgeId, newDoors);
                         }
-
-                        _badgeRepo.UpdateBadgeAccess(newBadge.BadgeID, newBadge.Doors);
-
                         break;
                     case "2":
                         //Remove Door Access
@@ -176,29 +164,16 @@ namespace _03_KomodoInsurance_Console
                             keepRemoving = false;
 
                             var values3 = _badgeRepo.ShowBadgesAndAccess();
-                            if (values3.TryGetValue(newBadge.BadgeID, out List<string> result3))
+                            if (values3.TryGetValue(badgeId, out List<string> doors2))
                             {
-                                Console.WriteLine($"Badge # {newBadge.BadgeID} has access to door(s) {string.Join(",", result3.ToArray())}.\n");
+                                Console.WriteLine($"Badge # {badgeId} has access to door(s) {string.Join(",", doors2.ToArray())}.\n");
                             }
 
-                            Console.WriteLine($"Enter a Door to remove from Badge # {newBadge.BadgeID} (i.e. A1, B5, etc.):");
+                            Console.WriteLine($"Enter a Door to remove from Badge # {badgeId} (i.e. A1, B5, etc.):");
                             string doorToRemove = Console.ReadLine();
-                            newBadge.Doors.Remove(doorToRemove);
-                                
-                            //newBadge.Doors.Remove(doorToRemove);
-                            
+                            newDoors.Remove(doorToRemove);
 
-                            //bool wasDeleted = _badgeRepo.UpdateBadgeAccess(newBadge.BadgeID, newBadge.Doors);
-                            //if (wasDeleted)
-                            //{
-                            //    Console.WriteLine("\nThe Door was successfully removed from Badge.");
-                            //}
-                            //else
-                            //{
-                            //    Console.WriteLine("\nThe Door could not be removed from Badge.");
-                            //}
-
-                            Console.WriteLine($"\nWould you like to remove another Door from Badge # {newBadge.BadgeID} (yes/no)?");
+                            Console.WriteLine($"\nWould you like to remove another Door from Badge # {badgeId} (yes/no)?");
                             string yesOrNoInput = Console.ReadLine().ToLower();
 
                             if (yesOrNoInput == "yes" || yesOrNoInput == "y")
@@ -206,11 +181,8 @@ namespace _03_KomodoInsurance_Console
                                 keepRemoving = true;
                             }
 
-                            _badgeRepo.UpdateBadgeAccess(newBadge.BadgeID, newBadge.Doors);
+                            _badgeRepo.UpdateBadgeAccess(badgeId, newDoors);
                         }
-
-                        _badgeRepo.UpdateBadgeAccess(newBadge.BadgeID, newBadge.Doors);
-
                         break;
                     case "3":
                         //Return to Main Menu
@@ -223,16 +195,6 @@ namespace _03_KomodoInsurance_Console
                 }
             }
         }
-
-        //Add Door to Badge
-        //public void AddDoorsToBadge(int badgeId, List<string> doors)
-        //{
-        //    Console.WriteLine("Enter a door to add to Badge:");
-        //    var userInput = Console.ReadLine();
-        //    doors.Add(userInput);
-
-        //    _badgeRepo.UpdateBadgeAccess(badgeId, doors);
-        //}
 
         //List All Badges
         private void ListAllBadges()
@@ -248,14 +210,59 @@ namespace _03_KomodoInsurance_Console
             }
         }
 
+        //List All Badges Table
+        private void ListAllBadgesTable()
+        {
+            Console.Clear();
+
+            Console.WriteLine("List of all Badges:");
+
+            PrintSeperatorLine();
+            PrintRow("Badge", "Door Access");
+            PrintSeperatorLine();
+            Dictionary<int, List<string>> listOfBadges = _badgeRepo.ShowBadgesAndAccess();
+            foreach (KeyValuePair<int, List<string>> badgeInfo in listOfBadges)
+            {
+                PrintRow(badgeInfo.Key.ToString(), string.Join(",", badgeInfo.Value.ToArray()));
+            }
+            PrintSeperatorLine();
+        }
+
         //Seed Badges
         private void SeedBadges()
         {
             Badge badge1 = new Badge(12345, new List<string> { "A7" });
-            Badge badge2 = new Badge(22345, new List<string> { "A1," + "A4," + "B1," + "B2" });
+            Badge badge2 = new Badge(22345, new List<string> { "A1","A4","B1","B2" });
+            Badge badge3 = new Badge(32345, new List<string> { "A4", "A5" });
 
             _badgeRepo.AddBadgeToDictionary(badge1.BadgeID, badge1.Doors);
             _badgeRepo.AddBadgeToDictionary(badge2.BadgeID, badge2.Doors);
+            _badgeRepo.AddBadgeToDictionary(badge3.BadgeID, badge2.Doors);
+        }
+
+        //Table Code (I do not understand this!)
+        private const int TableWidth = 40;
+        private static void PrintSeperatorLine()
+        {
+            Console.WriteLine(new string(' ', TableWidth));
+        }
+        private static void PrintRow(params string[] columns)
+        {
+            int columnWidth = (TableWidth - columns.Length) / columns.Length;
+
+            const string seed = " ";
+
+            string row = columns.Aggregate(seed, (seperator, columnText) => seperator + GetRightAlignedText(columnText, columnWidth) + seed);
+
+            Console.WriteLine(row);
+        }
+        private static string GetRightAlignedText(string columnText, int columnWidth)
+        {
+            columnText = columnText.Length > columnWidth ? columnText.Substring(0, columnWidth - 3) + "..." : columnText;
+
+            return string.IsNullOrEmpty(columnText)
+                ? new string(' ', columnWidth)
+                : columnText.PadRight(columnWidth - ((columnWidth - columnText.Length) / 2)).PadRight(columnWidth);
         }
     }
 }
