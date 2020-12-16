@@ -96,11 +96,11 @@ namespace _03_KomodoInsurance_Console
 
             _badgeRepo.AddBadgeToDictionary(newBadge.BadgeID, newBadge.Doors);
 
-            var values2 = _badgeRepo.ShowBadgesAndAccess();
-            if (values2.TryGetValue(newBadge.BadgeID, out List<string> doors))
+            var values = _badgeRepo.ShowBadgesAndAccess();
+            if (values.TryGetValue(newBadge.BadgeID, out List<string> doors))
             {
                 Console.WriteLine($"\nBadge # {newBadge.BadgeID} has access to door(s) {string.Join(",", doors.ToArray())}.");
-            } 
+            }
         }
 
         //Update Badge
@@ -116,12 +116,27 @@ namespace _03_KomodoInsurance_Console
 
             List<string> newDoors = _badgeRepo.ShowBadgeByID(badgeId);
 
+            var values = _badgeRepo.ShowBadgesAndAccess();
+            if (values.TryGetValue(badgeId, out List<string> doors))
+            {
+                Console.WriteLine($"\nBadge # {badgeId} has access to door(s) {string.Join(",", doors.ToArray())}.\n");
+                Console.WriteLine("Press ENTER to continue...");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine($"\nBadge # {badgeId} does not exist.\n");
+                Console.WriteLine("Press ENTER to continue...");
+                Console.ReadLine();
+                UpdateBadge();
+            }
+
             bool keepRunning = true;
             while (keepRunning)
             {
                 Console.Clear();
 
-                Console.WriteLine("Please select an option from the list below (i.e. 1):\n\n" +
+                Console.WriteLine("Select an option from the list below (i.e. 1):\n\n" +
                 "1. Add Door Access\n" +
                 "2. Remove Door Access\n" +
                 "3. Return to Main Menu\n");
@@ -141,9 +156,9 @@ namespace _03_KomodoInsurance_Console
                             keepAdding = false;
 
                             var values2 = _badgeRepo.ShowBadgesAndAccess();
-                            if (values2.TryGetValue(badgeId, out List<string> doors))
+                            if (values2.TryGetValue(badgeId, out List<string> doors1))
                             {
-                                Console.WriteLine($"Badge # {badgeId} has access to door(s) {string.Join(",", doors.ToArray())}.\n");
+                                Console.WriteLine($"Badge # {badgeId} has access to door(s) {string.Join(",", doors1.ToArray())}.\n");
                             }
 
                             Console.WriteLine($"Enter a Door that Badge # {badgeId} should have access to (i.e. A1, B5, etc.):");
@@ -197,7 +212,8 @@ namespace _03_KomodoInsurance_Console
                         keepRunning = false;
                         break;
                     default:
-                        Console.WriteLine("\nPlease select a valid number option from the menu above. Press any key to continue...");
+                        Console.WriteLine("\nPlease select a valid number option from the menu above.\n\n" +
+                            "Press ENTER to continue...");
                         Console.ReadLine();
                         break;
                 }
@@ -240,7 +256,7 @@ namespace _03_KomodoInsurance_Console
         private void SeedBadges()
         {
             Badge badge1 = new Badge(12345, new List<string> { "A7" });
-            Badge badge2 = new Badge(22345, new List<string> { "A1", "A4","B1","B2" });
+            Badge badge2 = new Badge(22345, new List<string> { "A1", "A4", "B1", "B2" });
             Badge badge3 = new Badge(32345, new List<string> { "A4", "A5" });
 
             _badgeRepo.AddBadgeToDictionary(badge1.BadgeID, badge1.Doors);
