@@ -147,7 +147,7 @@ namespace _03_KomodoInsurance_Console
                                 Console.WriteLine($"Badge # {newBadge.BadgeID} has access to door(s) {string.Join(",", result2.ToArray())}.\n");
                             }
 
-                            Console.WriteLine($"Enter a Door that Badge # {newBadge.BadgeID} should have access to (i.e. A1, B5, etc.):");
+                            Console.WriteLine($"Enter a Door that Badge # {newBadge.BadgeID} should have access to (i.e. A1, B5, etc.):\n");
                             string doorToAdd = Console.ReadLine();
                             newBadge.Doors.Add(doorToAdd);
 
@@ -184,6 +184,9 @@ namespace _03_KomodoInsurance_Console
                             Console.WriteLine($"Enter a Door to remove from Badge # {newBadge.BadgeID} (i.e. A1, B5, etc.):");
                             string doorToRemove = Console.ReadLine();
                             newBadge.Doors.Remove(doorToRemove);
+                                
+                            //newBadge.Doors.Remove(doorToRemove);
+                            
 
                             //bool wasDeleted = _badgeRepo.UpdateBadgeAccess(newBadge.BadgeID, newBadge.Doors);
                             //if (wasDeleted)
@@ -219,93 +222,17 @@ namespace _03_KomodoInsurance_Console
                         break;
                 }
             }
-
-
-
-
-
-
-            //public void AddDoorsToBadge(int badgeId, List<string> doors)
-            //{
-            //    Console.WriteLine("Enter a door to add to Badge:");
-            //    var userInput = Console.ReadLine();
-            //    doors.Add(userInput);
-
-            //    _badgeRepo.UpdateBadgeAccess(badgeId, doors);
-            //}
-
-
-            //if (values.TryGetValue(oldBadgeId, out List<string> result))
-            //{
-            //    Console.WriteLine($"{oldBadgeId} has access to doors {result}");
-            //}
-
-
-
-            //AddDoorsToBadge(oldBadgeId, );
-
-
-            //Dictionary<int, List<string>> listOfBadges = _badgeRepo.UpdateBadgeAccess(oldBadgeId, oldBadge);
-
-            //public int GetBadgeByID(int id)
-            //{
-            //    foreach (KeyValuePair<int, List<string>> key in _badgeDictionary)
-            //    {
-            //        if (key.Key == id)
-            //        {
-            //            return key.Key;
-            //        }
-            //    }
-            //    return 0;
-            //}
-
-
-
-
-
-            //public void UpdateBadgeAccess(int badgeId, List<string> newBadgeAccess)
-            //    {
-            //        _badgeDictionary[badgeId] = newBadgeAccess;
-            //    }
-
-            //foreach (KeyValuePair<int, List<string>> entry in listOfBadges)
-            //{
-            //}
-            //view dictionary item
-
-            //foreach (int badgeId in listOfBadges.Keys)
-            //{
-            //    Console.WriteLine($"\nBadge ID # {oldBadgeId} has access to doors");
-            //}
-
-            //Dictionary<int, List<string>> listOfBadges = _badgeRepo.ShowBadgesAndAccess();
-            //Dictionary<int, List<string>> listOfBadges = _badgeRepo.GetBadgeByID(oldBadgeId);
-
-            //oldBadge = _badgeRepo.GetBadgeByID(oldBadgeId);
-
-            //string value;
-            //if (myDict.ContainsKey(key))
-            //{
-            //    value = myDict[key];
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Key Not Present");
-            //    return;
-            //}
         }
 
         //Add Door to Badge
-        public void AddDoorsToBadge(int badgeId, List<string> doors)
-        {
-            Console.WriteLine("Enter a door to add to Badge:");
-            var userInput = Console.ReadLine();
-            doors.Add(userInput);
+        //public void AddDoorsToBadge(int badgeId, List<string> doors)
+        //{
+        //    Console.WriteLine("Enter a door to add to Badge:");
+        //    var userInput = Console.ReadLine();
+        //    doors.Add(userInput);
 
-            _badgeRepo.UpdateBadgeAccess(badgeId, doors);
-        }
-
-        //Delete Door from Badge
+        //    _badgeRepo.UpdateBadgeAccess(badgeId, doors);
+        //}
 
         //List All Badges
         private void ListAllBadges()

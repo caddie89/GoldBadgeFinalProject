@@ -26,15 +26,15 @@ namespace _03_KomodoInsurance_Repository
         }
 
         //Delete Doors
-        //public bool RemoveDoor(int badgeId, List<string> door)
-        //{
-        //    _badgeDictionary[badgeId] = door;
+        public bool RemoveDoor(int badgeId, List<string> door)
+        {
+            _badgeDictionary[badgeId] = door;
 
-        //    if (_badgeDictionary.Remove(badgeId))
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+            if (_badgeDictionary.Remove(badgeId))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
