@@ -10,6 +10,7 @@ namespace _03_KomodoInsurance_Tests
     {
         private BadgeRepository _badgeRepository;
 
+        //Didn't Use
         [TestInitialize]
         public void Arrange()
         {
@@ -37,17 +38,35 @@ namespace _03_KomodoInsurance_Tests
 
         //Show All Badges and Access
         [TestMethod]
-        public void ShowAllBadgesAndAccess_()
+        public void ShowAllBadgesAndAccess_IsNotNull()
         {
+            //Arrange
+            _badgeRepository = new BadgeRepository();
+            List<string> newList = new List<string>();
+            newList = new List<string> { "A7", "A8" };
+            _badgeRepository.UpdateBadgeAccess(12346, newList);
 
+            //Act
+            Dictionary<int, List<string>> dictionary = _badgeRepository.ShowBadgesAndAccess();
+
+            //Assert
+            Assert.IsNotNull(dictionary);
         }
 
         //Update Doors
         [TestMethod]
-        public void UpdateDoors_ShouldReturnTrue()
+        public void UpdateDoors_IsNotNull()
         {
+            //Arrange
+            _badgeRepository = new BadgeRepository();
+            List<string> newList = new List<string>();
+            newList = new List<string> { "A7", "A8" };
 
+            //Act
+            _badgeRepository.UpdateBadgeAccess(12346, newList);
 
+            //Assert
+            Assert.IsNotNull(_badgeRepository);
         }
 
         //Show Badge By ID
