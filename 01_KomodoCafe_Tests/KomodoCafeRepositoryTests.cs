@@ -70,19 +70,75 @@ namespace _01_KomodoCafe_Tests
         public void TestForAddingIngredientsToList()
         {
             //Arrange
-            Menu menuItems = new Menu();
-            MenuRepository repository = new MenuRepository();
-            int menuNumber = 1;
-            List<string> ingredients = new List<string>();
-            ingredients = new List<string> { "relish", "cheese" };
+            Menu menuItems = new Menu(1, new List<string> { "onions" });
+            MenuRepository menuRepo = new MenuRepository();
+            menuItems.MealNumber = 1;
+            menuItems.ListOfIngredients = new List<string> { "onions" };
+
+            menuRepo.AddMenuItemsToList(menuItems);
 
             //Act
-            repository.AddIngredientToMenu(menuNumber, ingredients);
+            menuRepo.AddIngredientToMenu(menuItems.MealNumber, menuItems.ListOfIngredients);
 
             //Assert
-            Assert.IsNotNull(repository);
+            Menu copyOfMenuFromList = new Menu();
+            List<Menu> menuDirectory = menuRepo.GetMenuItems();
+
+            foreach (Menu menu in menuDirectory)
+            {
+                if (menu.MealNumber == menuItems.MealNumber)
+                {
+                    copyOfMenuFromList = menu;
+                    break;
+                }
+            }
+            Assert.AreEqual(menuItems.MealNumber, copyOfMenuFromList.MealNumber);
+
+            foreach (Menu menu in menuDirectory)
+            {
+                if (menu.ListOfIngredients == menuItems.ListOfIngredients)
+                {
+                    copyOfMenuFromList = menu;
+                    break;
+                }
+            }
+            Assert.AreEqual(menuItems.ListOfIngredients, copyOfMenuFromList.ListOfIngredients);
         }
 
+        //Get Menu Items
+        [TestMethod]
+        public void TestForGetMenuItems()
+        {
+            //Arrange
+            MenuRepository menuRepo = new MenuRepository();
+            Menu menuItemsToAdd = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty", "mustard", "cheese", "onions" });
+
+            menuRepo.AddMenuItemsToList(menuItemsToAdd);
+
+            //Act
+            List<Menu> menuList = menuRepo.GetMenuItems();
+
+            //Assert
+            Assert.IsNotNull(menuList);
+        }
+
+        //Delete
+        [TestMethod]
+        public void TestForRemoveMenuItem()
+        {
+            //Arrange
+            MenuRepository menuRepo = new MenuRepository();
+            Menu menuItemsToAdd = new Menu(1, "Single Burger", "Single patty burger with a drink and a side.", 5.95m, new List<string> { "patty", "mustard", "cheese", "onions" });
+
+            menuRepo.AddMenuItemsToList(menuItemsToAdd);
+
+            //Act
+
+            bool removeItem = menuRepo.RemoveMenuItem(menuItemsToAdd.MealNumber);
+
+            Assert.IsTrue(removeItem);
+        }
+        
         //Get Menu Item By Number
         [TestMethod]
         public void AddToList_ShouldGetNotNull()
@@ -99,7 +155,5 @@ namespace _01_KomodoCafe_Tests
             //Assert --> Use the assert class to verify the expected outcome
             Assert.IsNotNull(menuItemsFromDirectory);
         }
-
-        
     }
 }
