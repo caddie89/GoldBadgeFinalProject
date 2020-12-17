@@ -8,8 +8,6 @@ namespace _03_KomodoInsurance_Tests
     [TestClass]
     public class KomodoBadgeRepositoryTests
     {
-        private BadgeRepository _badgeRepository;
-
         //Add Badge to Dictionary
         [TestMethod]
         public void TestAddBadgeToDictionary()
@@ -20,7 +18,7 @@ namespace _03_KomodoInsurance_Tests
             badgeItems.BadgeID = 12345;
             string doorInput = "A6";
             badgeItems.Doors.Add(doorInput);
-
+            
             //Act
             badgeRepo.AddBadgeToDictionary(badgeItems.BadgeID, badgeItems.Doors);
 
@@ -41,57 +39,71 @@ namespace _03_KomodoInsurance_Tests
 
         //Show All Badges and Access
         [TestMethod]
-        public void ShowAllBadgesAndAccess_IsNotNull()
+        public void TestForShowBadgesAndAccessIsNotNull()
         {
             //Arrange
-            _badgeRepository = new BadgeRepository();
-            List<string> newList = new List<string>();
-            newList = new List<string> { "A7", "A8" };
-            _badgeRepository.UpdateBadgeAccess(12346, newList);
+            Badge badgeItems = new Badge();
+            BadgeRepository badgeRepo = new BadgeRepository();
+            badgeItems.BadgeID = 12345;
+            string doorInput = "A6";
+            badgeItems.Doors.Add(doorInput);
+            
+            badgeRepo.AddBadgeToDictionary(badgeItems.BadgeID, badgeItems.Doors);
 
             //Act
-            Dictionary<int, List<string>> dictionary = _badgeRepository.ShowBadgesAndAccess();
+            Dictionary<int, List<string>> dictionary = badgeRepo.ShowBadgesAndAccess();
 
             //Assert
             Assert.IsNotNull(dictionary);
         }
 
         //Update Doors
-        //[TestMethod]
-        //public void UpdateDoors_IsNotNull()
-        //{
-        //    //Arrange
-        //    Badge badgeItems = new Badge();
-        //    BadgeRepository badgeRepo = new BadgeRepository();
-        //    int badgeId = 12345;
-        //    List<string> newDoors = badgeRepo.ShowBadgeByID(badgeId);
-        //    string doorToAdd = "A4";
-        //    newDoors.Add(doorToAdd);
+        [TestMethod]
+        public void TestToUpdateBadgeAccess()
+        {
+            //Arrange
+            BadgeRepository badgeRepo = new BadgeRepository();
+            int badgeId = 12345;
+            List<string> newDoors = badgeRepo.ShowBadgeByID(badgeId);
 
-        //    //Act
-        //    _badgeRepository.UpdateBadgeAccess(12346, newList);
+            //Act
+            badgeRepo.UpdateBadgeAccess(badgeId, newDoors);
 
-        //    //Assert
-        //    Assert.IsNotNull(_badgeRepository);
-        //}
+            //Assert
+            Dictionary<int, List<string>> dictionary = badgeRepo.ShowBadgesAndAccess();
+
+            bool IsEqual = false;
+
+            foreach (KeyValuePair<int, List<string>> pair in dictionary)
+            {
+                if (pair.Key == badgeId && pair.Value == newDoors)
+                {
+                    IsEqual = true;
+                }
+            }
+            Assert.IsTrue(IsEqual);
+        }
 
         //Show Badge By ID
         [TestMethod]
-        public void ShowBadgeByID_IsNotNull()
+        public void TestForShowBadgeByID()
         {
             //Arrange
             Badge badgeItems = new Badge();
-            badgeItems.BadgeID = 1;
-            BadgeRepository badgeRepository = new BadgeRepository();
-            List<string> doors = new List<string>();
-            doors = new List<string> { "A1" };
-            badgeRepository.AddBadgeToDictionary(1, doors);
+            BadgeRepository badgeRepo = new BadgeRepository();
+            badgeItems.BadgeID = 12345;
+            string doorInput = "A6";
+            badgeItems.Doors.Add(doorInput);
+            int badgeId = 12345;
+
+            badgeRepo.AddBadgeToDictionary(badgeItems.BadgeID, badgeItems.Doors);
 
             //Act
-            List<string> badgeItemsList = badgeRepository.ShowBadgeByID(1);
+            List<string> newDoors = new List<string>();
+            newDoors = badgeRepo.ShowBadgeByID(badgeId);
 
             //Assert
-            Assert.IsNotNull(badgeItemsList);
+            Assert.AreEqual(badgeItems.Doors, newDoors);
         }
     }
 }
