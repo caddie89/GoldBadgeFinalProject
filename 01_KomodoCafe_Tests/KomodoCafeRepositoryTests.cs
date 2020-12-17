@@ -23,7 +23,6 @@ namespace _01_KomodoCafe_Tests
             _repo.AddMenuItemsToList(_menuItems);
 
             //Assert
-
             List<Menu> menuDirectory = _repo.GetMenuItems();
 
             bool descriptionIsEqual = false;
@@ -39,7 +38,7 @@ namespace _01_KomodoCafe_Tests
             Assert.IsTrue(descriptionIsEqual);
         }
 
-        //This method does the same thing as above
+        //This checks same method as above
         [TestMethod]
         public void TestForAddingMenuItemsToList_Class()
         {
@@ -51,42 +50,39 @@ namespace _01_KomodoCafe_Tests
             menuRepo.AddMenuItemsToList(menuItemsToAdd);
 
             //Assert
-
             List<Menu> menuDirectory = menuRepo.GetMenuItems();
 
-            bool IdIsEqual = false;
+            bool idIsEqual = false;
 
             foreach (Menu menu in menuDirectory)
             {
                 if (menu.MealNumber == menuItemsToAdd.MealNumber)
                 {
-                    IdIsEqual = true;
+                    idIsEqual = true;
                     break;
                 }
             }
-            Assert.IsTrue(IdIsEqual);
+            Assert.IsTrue(idIsEqual);
         }
 
         //Add Ingredient To Menu
         [TestMethod]
-        public void AddIngredientToMenu_ShouldGetNotNull()
+        public void TestForAddingIngredientsToList()
         {
             //Arrange
-            _menuItems = new Menu();
-            _menuItems.MealNumber = 1;
-            _repo = new MenuRepository();
+            Menu menuItems = new Menu();
+            MenuRepository repository = new MenuRepository();
+            int menuNumber = 1;
             List<string> ingredients = new List<string>();
-            ingredients = new List<string> { "ketchup", "pickles" };
+            ingredients = new List<string> { "relish", "cheese" };
 
             //Act
-            _repo.AddIngredientToMenu(_menuItems.MealNumber, ingredients);
+            repository.AddIngredientToMenu(menuNumber, ingredients);
 
             //Assert
-            Assert.IsNotNull(_repo);
-
-            
-
+            Assert.IsNotNull(repository);
         }
+
         //Get Menu Item By Number
         [TestMethod]
         public void AddToList_ShouldGetNotNull()

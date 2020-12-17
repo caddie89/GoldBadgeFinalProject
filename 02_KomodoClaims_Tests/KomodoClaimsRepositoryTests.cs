@@ -13,7 +13,7 @@ namespace _02_KomodoClaims_Tests
 
         //Add Claim To Queue
         [TestMethod]
-        public void TestForAddingClaimsToQueue()
+        public void TestForAddingClaimsToQueue_Self()
         {
             //Arrange
             _claimsItems = new Claims(1, ClaimType.Car, "Car accident on 465.", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27), true);
@@ -23,7 +23,6 @@ namespace _02_KomodoClaims_Tests
             _claimsRepo.AddClaimToQueue(_claimsItems);
 
             //Assert
-
             Queue<Claims> claimsDirectory = _claimsRepo.SeeClaimItems();
 
             bool amountIsEqual = false;
@@ -36,8 +35,33 @@ namespace _02_KomodoClaims_Tests
                     break;
                 }
             }
-
             Assert.IsTrue(amountIsEqual);
+        }
+
+        //This checks same method as above
+        [TestMethod]
+        public void TestForAddingClaimsToQueue_Class()
+        {
+            //Arrange
+            _claimsItems = new Claims(1, ClaimType.Car, "Car accident on 465.", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27), true);
+            _claimsRepo = new ClaimsRepository();
+
+            //Act
+            _claimsRepo.AddClaimToQueue(_claimsItems);
+
+            //Assert
+            Claims copyOfClaimFromList = new Claims();
+            Queue<Claims> claimsDirectory = _claimsRepo.SeeClaimItems();
+
+            foreach (Claims claim in claimsDirectory)
+            {
+                if (claim.ClaimType == _claimsItems.ClaimType)
+                {
+                    copyOfClaimFromList = claim;
+                    break;
+                }
+            }
+            Assert.AreEqual(_claimsItems.ClaimType, copyOfClaimFromList.ClaimType);
         }
 
         //See All Claims

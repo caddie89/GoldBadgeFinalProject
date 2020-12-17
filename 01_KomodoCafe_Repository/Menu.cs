@@ -14,6 +14,8 @@ namespace _01_KomodoCafe_Repository
         //Empty Constructor
         public Menu() { }
 
+        public Menu(int mealNumber) { MealNumber = mealNumber; }
+
         //Constructor for Seed Method
         public Menu(int mealNumber, string mealName, string mealDescription, decimal mealPrice, List<string> listOfIngredients)
         {

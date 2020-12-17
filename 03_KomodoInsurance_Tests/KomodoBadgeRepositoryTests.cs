@@ -10,30 +10,33 @@ namespace _03_KomodoInsurance_Tests
     {
         private BadgeRepository _badgeRepository;
 
-        //Didn't Use
-        [TestInitialize]
-        public void Arrange()
-        {
-           
-        }
-
         //Add Badge to Dictionary
         [TestMethod]
-        public void AddBadgeToDictionary_IsNotNull()
+        public void TestAddBadgeToDictionary()
         {
             //Arrange
             Badge badgeItems = new Badge();
-            badgeItems.BadgeID = 1;
-            _badgeRepository = new BadgeRepository();
-            List<string> doors = new List<string>();
-            doors = new List<string> { "A1" };
+            BadgeRepository badgeRepo = new BadgeRepository();
+            badgeItems.BadgeID = 12345;
+            string doorInput = "A6";
+            badgeItems.Doors.Add(doorInput);
 
             //Act
-            _badgeRepository.AddBadgeToDictionary(1, doors);
+            badgeRepo.AddBadgeToDictionary(badgeItems.BadgeID, badgeItems.Doors);
 
             //Assert
-            Assert.IsNotNull(_badgeRepository);
+            Dictionary<int, List<string>> dictionary = badgeRepo.ShowBadgesAndAccess();
 
+            bool IsEqual = false;
+
+            foreach (KeyValuePair<int, List<string>> pair in dictionary)
+            {
+                if (pair.Key == badgeItems.BadgeID && pair.Value == badgeItems.Doors)
+                {
+                    IsEqual = true;
+                }
+            }
+            Assert.IsTrue(IsEqual);
         }
 
         //Show All Badges and Access
@@ -54,20 +57,23 @@ namespace _03_KomodoInsurance_Tests
         }
 
         //Update Doors
-        [TestMethod]
-        public void UpdateDoors_IsNotNull()
-        {
-            //Arrange
-            _badgeRepository = new BadgeRepository();
-            List<string> newList = new List<string>();
-            newList = new List<string> { "A7", "A8" };
+        //[TestMethod]
+        //public void UpdateDoors_IsNotNull()
+        //{
+        //    //Arrange
+        //    Badge badgeItems = new Badge();
+        //    BadgeRepository badgeRepo = new BadgeRepository();
+        //    int badgeId = 12345;
+        //    List<string> newDoors = badgeRepo.ShowBadgeByID(badgeId);
+        //    string doorToAdd = "A4";
+        //    newDoors.Add(doorToAdd);
 
-            //Act
-            _badgeRepository.UpdateBadgeAccess(12346, newList);
+        //    //Act
+        //    _badgeRepository.UpdateBadgeAccess(12346, newList);
 
-            //Assert
-            Assert.IsNotNull(_badgeRepository);
-        }
+        //    //Assert
+        //    Assert.IsNotNull(_badgeRepository);
+        //}
 
         //Show Badge By ID
         [TestMethod]
