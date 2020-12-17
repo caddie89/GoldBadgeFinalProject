@@ -79,9 +79,9 @@ namespace _03_KomodoInsurance_Tests
             BadgeRepository badgeRepository = new BadgeRepository();
             List<string> doors = new List<string>();
             doors = new List<string> { "A1" };
+            badgeRepository.AddBadgeToDictionary(1, doors);
 
             //Act
-            badgeRepository.AddBadgeToDictionary(1, doors);
             List<string> badgeItemsList = badgeRepository.ShowBadgeByID(1);
 
             //Assert

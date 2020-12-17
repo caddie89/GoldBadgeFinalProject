@@ -11,16 +11,9 @@ namespace _02_KomodoClaims_Tests
         private Claims _claimsItems;
         private ClaimsRepository _claimsRepo;
 
-        //Didn't Use
-        [TestInitialize]
-        public void Arrange()
-        {
-            
-        }
-
-        //Add Method
+        //Add Claim To Queue
         [TestMethod]
-        public void AddClaimToQueue_ShouldNotGetNull()
+        public void TestForAddingClaimsToQueue()
         {
             //Arrange
             _claimsItems = new Claims(1, ClaimType.Car, "Car accident on 465.", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27), true);
@@ -30,10 +23,24 @@ namespace _02_KomodoClaims_Tests
             _claimsRepo.AddClaimToQueue(_claimsItems);
 
             //Assert
-            Assert.IsNotNull(_claimsRepo);
+
+            Queue<Claims> claimsDirectory = _claimsRepo.SeeClaimItems();
+
+            bool amountIsEqual = false;
+
+            foreach (Claims claimsItem in claimsDirectory)
+            {
+                if (claimsItem.ClaimAmount == _claimsItems.ClaimAmount)
+                {
+                    amountIsEqual = true;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(amountIsEqual);
         }
 
-        //Read Method
+        //See All Claims
         [TestMethod]
         public void SeeClaimsItems_ShouldNotGetNull()
         {

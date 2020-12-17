@@ -9,13 +9,13 @@ namespace _02_KomodoClaims_Repository
     {
         private Queue<Claims> _claimItems = new Queue<Claims>();
 
-        //Create Method (Create New Claim)
+        //Add Claim To Queue
         public void AddClaimToQueue(Claims claimItems)
         {
             _claimItems.Enqueue(claimItems);
         }
 
-        //Read Method (View All Claims)
+        //See All Claims
         public Queue<Claims> SeeClaimItems()
         {
             return _claimItems;            

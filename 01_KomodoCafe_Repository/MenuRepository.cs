@@ -9,7 +9,7 @@ namespace _01_KomodoCafe_Repository
         //Field
         private List<Menu> _menuItems = new List<Menu>();
 
-        //Create Method
+        //Create Method(s)
         public void AddMenuItemsToList(Menu menuItems)
         {
             _menuItems.Add(menuItems);
@@ -47,7 +47,7 @@ namespace _01_KomodoCafe_Repository
             return false;
         }
 
-        //Menu Helper
+        //Get Menu Item By Number
         public Menu GetMenuItemByNumber(int itemNumber)
         {
             foreach (Menu mealNumber in _menuItems)
