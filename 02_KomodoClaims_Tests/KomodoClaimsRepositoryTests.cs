@@ -70,7 +70,8 @@ namespace _02_KomodoClaims_Tests
         {
             //Arrange
             _claimsRepo = new ClaimsRepository();
-            _claimsItems = new Claims();
+            _claimsItems = new Claims(1, ClaimType.Car, "Car accident on 465.", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27), true);
+
             _claimsRepo.AddClaimToQueue(_claimsItems);
 
             //Act
