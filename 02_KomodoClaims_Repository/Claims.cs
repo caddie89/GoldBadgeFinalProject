@@ -26,7 +26,6 @@ namespace _02_KomodoClaims_Repository
             IsValid = isValid;
         }
     }
-
     public enum ClaimType
     {
         Car = 1,

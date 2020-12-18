@@ -70,10 +70,19 @@ namespace _03_KomodoInsurance_Console
             ListAllBadges();
 
             Badge newBadge = new Badge();
-
             Console.WriteLine("Enter a unique 5-digit Badge # (i.e. 12345):");
             string badgeNumber = Console.ReadLine();
             newBadge.BadgeID = int.Parse(badgeNumber);
+
+            var values5 = _badgeRepo.ShowBadgesAndAccess();
+            if (values5.TryGetValue(newBadge.BadgeID, out List<string> doors5))
+            {
+                Console.WriteLine($"\nBadge # {newBadge.BadgeID} already exists. Return to Menu and try again.");
+                Console.WriteLine("\nPress ENTER to continue...");
+                Console.ReadLine();
+                Console.Clear();
+                Menu();
+            }
 
             bool keepAdding = true;
             while (keepAdding)
@@ -195,6 +204,13 @@ namespace _03_KomodoInsurance_Console
                             Console.WriteLine($"Enter a Door to remove from Badge # {badgeId} (i.e. A1, B5, etc.):");
                             string doorToRemove = Console.ReadLine();
                             newDoors.Remove(doorToRemove);
+
+                            var values4 = _badgeRepo.ShowBadgesAndAccess();
+                            if (values4.TryGetValue(badgeId, out List<string> doors3))
+                            {
+                                Console.WriteLine($"\nDoor {doorToRemove} has been deleted.\n\n" +
+                                    $"Badge # {badgeId} now has access to door(s) {string.Join(",", doors3.ToArray())}.\n");
+                            }
 
                             Console.WriteLine($"\nWould you like to remove another Door from Badge # {badgeId} (yes/no)?");
                             string yesOrNoInput = Console.ReadLine().ToLower();

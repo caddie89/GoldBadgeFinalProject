@@ -107,6 +107,7 @@ namespace _02_KomodoClaims_Console
 
                     Console.WriteLine("Would you like to deal with this claim now (yes/no)?");
                     string userInput = Console.ReadLine().ToLower();
+
                     if (userInput == "yes" || userInput == "y")
                     {
                         nextClaimInQueue.Dequeue();
@@ -114,6 +115,7 @@ namespace _02_KomodoClaims_Console
                     }
                     else
                     {
+                        keepWorkingOnClaims = false;
                         break;
                     }
 

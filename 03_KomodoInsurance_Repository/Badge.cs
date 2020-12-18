@@ -15,7 +15,7 @@ namespace _03_KomodoInsurance_Repository
             BadgeID = badgeId;
         }
 
-        //Seed Data Constructor (may not need)
+        //Seed Data Constructor
         public Badge(int badgeId, List<string> doors)
         {
             BadgeID = badgeId;

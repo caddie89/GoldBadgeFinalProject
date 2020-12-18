@@ -114,8 +114,6 @@ namespace _01_KomodoCafe_Console
                 {
                     keepAdding = true;
                 }
-
-                Console.Clear();
             }
 
             _menuRepo.AddIngredientToMenu(newMenuItem.MealNumber, listOfIngredients);
