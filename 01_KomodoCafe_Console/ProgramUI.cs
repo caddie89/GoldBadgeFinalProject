@@ -82,7 +82,7 @@ namespace _01_KomodoCafe_Console
             {
                 tryAgain = false;
 
-                Console.WriteLine("\nAssign a unique Meal Number:");
+                Console.WriteLine("\nAssign a unique Meal Number (i.e. 2):");
                 var mealNumber = Console.ReadLine();
                 newMenuItem.MealNumber = int.Parse(mealNumber);
 
@@ -112,8 +112,6 @@ namespace _01_KomodoCafe_Console
             bool needsCorrectPrice = true;
             while (needsCorrectPrice)
             {
-                needsCorrectPrice = false;
-
                 Console.WriteLine("\nAssign a price for this meal (i.e. 4.99, 3.32, etc.):");
                 string mealPrice = Console.ReadLine();
 

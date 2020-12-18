@@ -132,9 +132,42 @@ namespace _02_KomodoClaims_Console
             Claims newClaim = new Claims();
 
             //Enter ClaimID
-            Console.WriteLine("Enter the Claim ID:");
-            var claimId = Console.ReadLine();
-            newClaim.ClaimID = int.Parse(claimId);
+            bool needsCorrectNumber = true;
+            while (needsCorrectNumber)
+            {
+                ViewAllClaims();
+
+                needsCorrectNumber = false;
+
+                Console.WriteLine("Enter the Claim ID (i.e. 4):");
+                var claimId = Console.ReadLine();
+
+                if (int.TryParse(claimId, out int d))
+                {
+                    //Valid
+                    newClaim.ClaimID = int.Parse(claimId);
+                    foreach (Claims claimsItem in _claimsRepo.SeeClaimItems())
+                    {
+                        if (claimsItem.ClaimID == newClaim.ClaimID)
+                        {
+                            Console.WriteLine($"\nClaim ID {newClaim.ClaimID} already exists.\n\n" +
+                                $"Press any key to continue...");
+                            Console.ReadLine();
+                            Console.Clear();
+                            needsCorrectNumber = true;
+                        }
+                    }
+                }
+                else
+                {
+                    //Invalid
+                    Console.WriteLine("\nPlease enter a valid Claim ID (must be an integer i.e. 1).");
+                    needsCorrectNumber = true;
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
 
             //Enter Claim Type
             Console.WriteLine("\nEnter the Claim Type (1, 2, or 3):\n" +
@@ -150,22 +183,75 @@ namespace _02_KomodoClaims_Console
             newClaim.ClaimDescription = Console.ReadLine();
 
             //Enter Claim Amount
-            Console.WriteLine("\nEnter Claim Amount:");
-            var claimAmount = Console.ReadLine();
-            var claimAmountDecimal = decimal.Parse(claimAmount);
-            newClaim.ClaimAmount = claimAmountDecimal;
+            bool needsCorrectAmount = true;
+            while (needsCorrectAmount)
+            {
+                Console.WriteLine("\nEnter Claim Amount (i.e. 300.00):");
+                var claimAmount = Console.ReadLine();
 
+                if (decimal.TryParse(claimAmount, out decimal d))
+                {
+                    //Valid
+                    newClaim.ClaimAmount = decimal.Parse(claimAmount);
+                    needsCorrectAmount = false;
+                }
+                else
+                {
+                    //Invalid
+                    Console.WriteLine("\nPlease enter a valid amount (must be a decimal number i.e. 2000.00).");
+                    needsCorrectAmount = true;
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
             //Date of Accident
-            Console.WriteLine("\nDate of Accident (yyyy, mm, dd):");
-            var dateOfAccident = Console.ReadLine();
-            var dateOfAccidentDate = DateTime.Parse(dateOfAccident);
-            newClaim.DateOfAccident = dateOfAccidentDate;
+            bool correctDateFormat = true;
+            while (correctDateFormat)
+            {
+                Console.WriteLine("\nDate of Accident (yyyy, mm, dd):");
+                var dateOfAccident = Console.ReadLine();
+
+                if (DateTime.TryParse(dateOfAccident, out DateTime dT))
+                {
+                    //Valid
+                    newClaim.DateOfAccident = DateTime.Parse(dateOfAccident);
+                    correctDateFormat = false;
+                }
+                else
+                {
+                    //Invalid
+                    Console.WriteLine("\nPlease enter a valid date (must be in 'yyyy, mm, dd' format).");
+                    correctDateFormat = true;
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
 
             //Date of Claim
-            Console.WriteLine("\nDate of Claim (yyyy, mm, dd):");
-            var dateOfClaim = Console.ReadLine();
-            var dateOfClaimDate = DateTime.Parse(dateOfClaim);
-            newClaim.DateOfClaim = dateOfClaimDate;
+            bool correctDateFormat2 = true;
+            while (correctDateFormat2)
+            {
+                Console.WriteLine("\nDate of Claim (yyyy, mm, dd):");
+                var dateOfClaim = Console.ReadLine();
+
+                if (DateTime.TryParse(dateOfClaim, out DateTime dT))
+                {
+                    //Valid
+                    newClaim.DateOfClaim = DateTime.Parse(dateOfClaim);
+                    correctDateFormat2 = false;
+                }
+                else
+                {
+                    //Invalid
+                    Console.WriteLine("\nPlease enter a valid date (must be in 'yyyy, mm, dd' format).");
+                    correctDateFormat2 = true;
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
 
             //IsValid Claim
             Console.WriteLine("\nIs this Claim Valid (yes/no)?");
