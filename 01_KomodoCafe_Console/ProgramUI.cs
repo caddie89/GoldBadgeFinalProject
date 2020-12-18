@@ -77,9 +77,28 @@ namespace _01_KomodoCafe_Console
             Menu newMenuItem = new Menu();
 
             //Assign Meal Number
-            Console.WriteLine("\nAssign a unique Meal Number:");
-            var mealNumber = Console.ReadLine();
-            newMenuItem.MealNumber = int.Parse(mealNumber);
+            bool tryAgain = true;
+            while (tryAgain)
+            {
+                tryAgain = false;
+
+                Console.WriteLine("\nAssign a unique Meal Number:");
+                var mealNumber = Console.ReadLine();
+                newMenuItem.MealNumber = int.Parse(mealNumber);
+
+                foreach (Menu menuItem in _menuRepo.GetMenuItems())
+                {
+                    if (menuItem.MealNumber == newMenuItem.MealNumber)
+                    {
+                        Console.WriteLine($"\nMeal # {newMenuItem.MealNumber} already exists.\n\n" +
+                            $"Press any key to continue...");
+                        Console.ReadLine();
+                        Console.Clear();
+                        ViewAllMeals();
+                        tryAgain = true;
+                    }
+                }
+            }
 
             //Assign Meal Name
             Console.WriteLine("\nAssign a unique Meal Name:");
@@ -90,9 +109,30 @@ namespace _01_KomodoCafe_Console
             newMenuItem.MealDescription = Console.ReadLine();
 
             //Assign Meal Price
-            Console.WriteLine("\nAssign a price for this meal:");
-            string mealPrice = Console.ReadLine();
-            newMenuItem.MealPrice = decimal.Parse(mealPrice);
+            bool needsCorrectPrice = true;
+            while (needsCorrectPrice)
+            {
+                needsCorrectPrice = false;
+
+                Console.WriteLine("\nAssign a price for this meal (i.e. 4.99, 3.32, etc.):");
+                string mealPrice = Console.ReadLine();
+
+                if (decimal.TryParse(mealPrice, out decimal d))
+                {
+                    //Valid
+                    newMenuItem.MealPrice = decimal.Parse(mealPrice);
+                    needsCorrectPrice = false;
+                }
+                else
+                {
+                    //Invalid
+                    Console.WriteLine("\nPlease enter a valid price (must be a decimal number i.e. 2.99).");
+                    needsCorrectPrice = true;
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
 
             _menuRepo.AddMenuItemsToList(newMenuItem);
 
@@ -165,7 +205,7 @@ namespace _01_KomodoCafe_Console
                     Console.WriteLine("\nNo Meal identified by that Meal Number.");
                 }
 
-                Console.WriteLine("Would you like to view another Meal Number (yes/no)?");
+                Console.WriteLine("\nWould you like to view another Meal Number (yes/no)?");
                 string userInput2 = Console.ReadLine().ToLower();
 
                 if (userInput2 == "yes" || userInput2 == "y")
